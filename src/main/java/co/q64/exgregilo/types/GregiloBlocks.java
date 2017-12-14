@@ -5,21 +5,27 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
-import co.q64.exgregilo.api.ExGregiloAPI;
-import co.q64.exgregilo.api.links.LinkBase;
+import co.q64.exgregilo.api.link.LinkBase;
 import co.q64.exgregilo.block.AdvancedSieve;
 import co.q64.exgregilo.block.AdvancedSieveItemBlock;
-import co.q64.exgregilo.links.exnihilo.ExNihilo;
-import co.q64.exgregilo.links.gregtech.GregTech;
-import cpw.mods.fml.common.registry.GameRegistry;
+import co.q64.exgregilo.block.GemSand;
+import co.q64.exgregilo.function.BlockProvider;
+import co.q64.exgregilo.link.exnihilo.ExNihilo;
+import co.q64.exgregilo.link.gregtech.GregTech;
 
+@SuppressWarnings("unchecked")
 public enum GregiloBlocks {
-	@SuppressWarnings("unchecked")
 	ADVANCED_SIEVE(AdvancedSieve.BLOCK_NAME, new BlockProvider() {
 		public Block newBlock() {
 			return new AdvancedSieve();
 		}
-	}, AdvancedSieveItemBlock.class, Arrays.asList(ExNihilo.class, GregTech.class));
+	}, AdvancedSieveItemBlock.class, Arrays.asList(ExNihilo.class, GregTech.class)), GEM_SAND(GemSand.BLOCK_NAME, new BlockProvider() {
+
+		@Override
+		public Block newBlock() {
+			return new GemSand();
+		}
+	}, Arrays.asList(ExNihilo.class, GregTech.class));
 
 	private String name;
 	private BlockProvider block;
@@ -61,28 +67,15 @@ public enum GregiloBlocks {
 		return realBlock;
 	}
 
+	public void setRealBlock(Block block) {
+		this.realBlock = block;
+	}
+
 	public boolean isRegistered() {
 		return registered;
 	}
 
-	public static void registerBlocks() {
-		for (GregiloBlocks b : GregiloBlocks.class.getEnumConstants()) {
-			for (Class<? extends LinkBase> link : b.getRequired()) {
-				if (!ExGregiloAPI.getLinkManager().isEnabled(link)) {
-					continue;
-				}
-			}
-			b.realBlock = b.getBlock().newBlock();
-			b.registered = true;
-			if (b.getItemBlock() == null) {
-				GameRegistry.registerBlock(b.getRealBlock(), b.getName());
-			} else {
-				GameRegistry.registerBlock(b.getRealBlock(), b.getItemBlock(), b.getName());
-			}
-		}
-	}
-
-	private static interface BlockProvider {
-		public Block newBlock();
+	public void setRegistered(boolean registered) {
+		this.registered = registered;
 	}
 }
