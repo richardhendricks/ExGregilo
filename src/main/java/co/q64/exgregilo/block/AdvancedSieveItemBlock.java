@@ -16,9 +16,4 @@ public class AdvancedSieveItemBlock extends ItemBlock {
 	public String getUnlocalizedName(ItemStack stack) {
 		return NAME;
 	}
-
-	@Override
-	public int getMetadata(int meta) {
-		return meta;
-	}
 }

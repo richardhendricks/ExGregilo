@@ -17,17 +17,11 @@ import javax.inject.Singleton;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-
-import org.apache.logging.log4j.Logger;
-
-import co.q64.exgregilo.api.link.LinkManager;
-import co.q64.exgregilo.link.gregtech.GregTech;
-import co.q64.exgregilo.link.gregtech.tools.MetaGeneratedTools;
+import co.q64.exgregilo.api.util.Logger;
 
 @Singleton
 public class MachineRecipeHelper {
 	private @Inject Logger logger;
-	private @Inject LinkManager linkManager;
 
 	public void addMachineRecipe(MetaTileEntity tile, int mTier, Object[] aRecipe) {
 		for (int i = 3; i < aRecipe.length; i++) {
@@ -552,10 +546,6 @@ public class MachineRecipeHelper {
 					break;
 				}
 				continue;
-			}
-
-			if (aRecipe[i].equals(OreDictAddons.WIRE_MESH)) {
-				aRecipe[i] = linkManager.getLink(GregTech.class).getTools().getMeshWithStats(MetaGeneratedTools.WIRE_MESH_ID, 1, Materials.Tin, Materials.Tin, null);
 			}
 
 			if (aRecipe[i] instanceof X)

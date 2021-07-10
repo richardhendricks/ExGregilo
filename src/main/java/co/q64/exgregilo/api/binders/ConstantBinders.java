@@ -11,10 +11,8 @@ import co.q64.com.google.inject.BindingAnnotation;
 public interface ConstantBinders {
 	//formatter:off
 	public static @Target({ ElementType.FIELD }) @Retention(RUNTIME) @BindingAnnotation  @interface Name {}
-	
 	public static @Target({ ElementType.FIELD }) @Retention(RUNTIME) @BindingAnnotation  @interface Author {}
-	
+	public static @Target({ ElementType.FIELD }) @Retention(RUNTIME) @BindingAnnotation  @interface Version {}
 	public static @Target({ ElementType.FIELD }) @Retention(RUNTIME) @BindingAnnotation  @interface ConfigFile {}
-	
 	//formatter:on
 }
